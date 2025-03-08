@@ -6,6 +6,12 @@ from gtts import gTTS
 from playsound import playsound
 import random
 import os
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+def kelime_sayisi_hesapla(metin):
+    kelimeler = metin.split()
+    return len(kelimeler)
+
 
 r = sr.Recognizer()
 
@@ -22,21 +28,16 @@ def record(ask = False):
             except sr.RequestError:
                 speak('sistem çalışmıyor')
             return voice
+
+
 def response(voice):
-    if 'nasılsın' in voice:
-        speak('iyiyim teşekkür ederim')
-    if 'saat kaç' in voice:
-        speak(datetime.now().strftime('%H:%M:S'))
-    if 'arama yap' in voice:
-        search = record('ne aramak istiyorsun')
-        url = 'https://google.com/search?q=' +search
-        webbrowser.get().open(url)
-        speak(search + 'için bulduklarım')
-    if 'bana bir espri yap' in voice:
-        speak("")
-    if 'tamamdır' in voice:
-        speak('görüşmek üzere')
-        exit()
+    print(voice)
+    metin= voice
+    kelimeler = word_tokenize(metin)
+    kelimeler.split()
+    kelime_sayisi = len(kelimeler)
+    print(f"Kelime sayısı: {kelime_sayisi}")
+    exit()
 
 def speak(string):
     tts = gTTS(string, lang='tr')
@@ -45,10 +46,3 @@ def speak(string):
     tts.save(file)
     playsound(file)
     os.remove(file)
-
-speak('nasıl yardımcı olabilirim?')
-time.sleep(1)
-while 1:
-    voice = record()
-    print(voice)
-    response(voice)

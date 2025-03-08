@@ -6,6 +6,7 @@ from gtts import gTTS
 from playsound import playsound
 import random
 import os
+import turtle as t
 
 r = sr.Recognizer()
 
@@ -23,21 +24,14 @@ def record(ask = False):
                 speak('sistem çalışmıyor')
             return voice
 def response(voice):
-    if 'nasılsın' in voice:
-        speak('iyiyim teşekkür ederim')
-    if 'saat kaç' in voice:
-        speak(datetime.now().strftime('%H:%M:S'))
-    if 'arama yap' in voice:
-        search = record('ne aramak istiyorsun')
-        url = 'https://google.com/search?q=' +search
-        webbrowser.get().open(url)
-        speak(search + 'için bulduklarım')
-    if 'bana bir espri yap' in voice:
-        speak("")
-    if 'tamamdır' in voice:
-        speak('görüşmek üzere')
-        exit()
-
+    if 'kare çiz' in voice:
+        for a in range (4):
+            t.speed(10)
+            t.forward(100)
+            t.right(90)
+    if 'yuvarlak çiz' in voice:
+        r = 50
+        t.circle(r) 
 def speak(string):
     tts = gTTS(string, lang='tr')
     rand = random.randint(1,10000)
